@@ -6,7 +6,6 @@ const app = express();
 const db= mysql.createConnection({
     host:"localhost",
     user:"root",
-    // esme on project ma hast
     database:"crud-project"
 })
 
@@ -16,25 +15,42 @@ app.get('/', (req,res)=>{
 })
 
 
-// rafti on data ro begiri
+// har mogeh karbar dar khasti mifresteh in anjam mishe 
 app.get('/cars', (req, res)=>{
-
-    // gofti har chizi ke dakhel table cars hast ro neshon bedeh
-    const q = "SELECT * FROM CARS"
-
-    // inja rafti ye query zadi on db ro v on q ro dadi behesh
-    // aval err va dovom data ro gerefti
+    const q = "SELECT * FROM cars"
     db.query(q, (err, data)=>{
         
-        // gofti agar err bod on ro neshon bedeh agar na biyad data ro neshon bedeh 
         if(err) return res.json(err)
 
         return res.json(data)
     } )
 })
 
+// mikhay post bokoni yani mikhy befresti chizi ro be data 
+// req mishe load kardan safhe ma bashe 
+app.post('/cars', (req, res)=>{
+
+    const q = "INSERT INTO cars ( `title`, `desc`, `price` ,`cover`) VALUE (?) ";
+    
+    // values in mishe jay on ?
+    // inja ham omadi body ro gerefti chon ham chi daroon body hast
+    const values= [
+        req.body.title,
+        req.body.desc,
+        req.body.price,
+        req.body.cover,
+    ]
+
+    // inja mireh mishineh on values 
+    db.query(q, [values] ,(err, data)=>{
+        if(err) return res.json(err)
+        return res.json(data)
+    })
+
+
+})
+
 app.listen(3003, ()=>{
     console.log('hello there!');
-
 })
 
