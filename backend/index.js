@@ -10,12 +10,15 @@ const db= mysql.createConnection({
 })
 
 
+// omadi file json ro dadi ta betoneh bekoneh 
+// * server express ma nmitoenh json bekoenh pas miay behesh migi 
+app.use(express.json())
+
 app.get('/', (req,res)=>{
     res.json("Hii there")
 })
 
 
-// har mogeh karbar dar khasti mifresteh in anjam mishe 
 app.get('/cars', (req, res)=>{
     const q = "SELECT * FROM cars"
     db.query(q, (err, data)=>{
@@ -26,14 +29,10 @@ app.get('/cars', (req, res)=>{
     } )
 })
 
-// mikhay post bokoni yani mikhy befresti chizi ro be data 
-// req mishe load kardan safhe ma bashe 
 app.post('/cars', (req, res)=>{
 
     const q = "INSERT INTO cars ( `title`, `desc`, `price` ,`cover`) VALUE (?) ";
     
-    // values in mishe jay on ?
-    // inja ham omadi body ro gerefti chon ham chi daroon body hast
     const values= [
         req.body.title,
         req.body.desc,
@@ -41,10 +40,9 @@ app.post('/cars', (req, res)=>{
         req.body.cover,
     ]
 
-    // inja mireh mishineh on values 
     db.query(q, [values] ,(err, data)=>{
         if(err) return res.json(err)
-        return res.json(data)
+        return res.json('success')
     })
 
 
