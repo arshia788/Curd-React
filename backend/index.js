@@ -17,7 +17,7 @@ app.use(express.json())
 app.use(cors());
 
 app.get("/", (req, res)=> {
-     res.json("Hiiiiii Is Run")
+     res.json("Hiiiiii Is Runn")
 })
 
 app.get('/cars', (req, res)=>{
