@@ -40,7 +40,7 @@ app.post('/cars', (req, res)=>{
     ]
     db.query(q, [values] ,(err, data)=>{
         if(err) return res.json(err)
-        return res.json('success')
+        return res.json('success ;)')
     })
 })
 
