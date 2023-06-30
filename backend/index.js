@@ -44,6 +44,18 @@ app.post('/cars', (req, res)=>{
     })
 })
 
+// be id on car niaz dari ta betoni on ro hazfrh bokoni
+app.delete('/cars/:id', (req, res)=>{
+
+    // omadi on id on car to gerefti
+    const carId= req.params.id
+    const q= "DELETE FROM cars WHERE id= ?"
+    db.query(q, [carId], (err, data)=>{
+        if(err) return res.json(err)
+        return res.json("The car Has been deleted")
+    })
+})
+
 
 app.listen(5000, ()=> {
      console.log("connected to backend :)");
